@@ -33,7 +33,23 @@ help("Animals2", package = "robustbase")
 
 ## 2. Exploración inicial
 
-Pendiente de resolver.
+### Conjunto mammals
+
+```{r explorar-mammals}
+dim(mammals)
+head(mammals)
+tail(mammals)
+str(mammals)
+```
+
+### Conjunto Animals2
+
+```{r explorar-animals2}
+dim(Animals2)
+head(Animals2)
+tail(Animals2)
+str(Animals2)
+```
 
 ## 3. Nombres de filas y columnas
 
