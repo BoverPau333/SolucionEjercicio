@@ -53,7 +53,20 @@ str(Animals2)
 
 ## 3. Nombres de filas y columnas
 
-Pendiente de resolver.
+### Conjunto mammals
+
+```{r nombres-mammals}
+rownames(mammals)
+colnames(mammals)
+```
+
+### Conjunto Animals2
+
+```{r nombres-animals2}
+rownames(Animals2)
+colnames(Animals2)
+```
+
 
 ## 4. Animales comunes
 
