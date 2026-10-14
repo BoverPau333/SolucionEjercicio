@@ -67,10 +67,15 @@ rownames(Animals2)
 colnames(Animals2)
 ```
 
-
 ## 4. Animales comunes
 
-Pendiente de resolver.
+```{r animales-comunes}
+commonAnimals <- intersect(rownames(mammals), rownames(Animals2))
+
+commonAnimals
+length(commonAnimals)
+```
+
 
 ## 5. Animales que no aparecen en ambos conjuntos
 
