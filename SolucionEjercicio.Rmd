@@ -11,12 +11,25 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Datos personales
 
-- Usuario UV: Pau Bover Femenias 
-- Correo electrónico: bofepau@alumni.uv.es
+- Usuario UV: Pau Bover Femenias
+- Correo electrónico: [bofepau\@alumni.uv.es](mailto:bofepau@alumni.uv.es){.email}
+
+```{r cargar-datos}
+library(MASS)
+library(robustbase)
+
+data("mammals", package = "MASS")
+data("Animals2", package = "robustbase")
+```
 
 ## 1. Características de los conjuntos de datos
 
-Pendiente de resolver.
+```{r, eval=FALSE}
+
+help("mammals", package = "MASS")
+help("Animals2", package = "robustbase")
+
+```
 
 ## 2. Exploración inicial
 
