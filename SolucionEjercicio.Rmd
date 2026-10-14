@@ -76,10 +76,25 @@ commonAnimals
 length(commonAnimals)
 ```
 
-
 ## 5. Animales que no aparecen en ambos conjuntos
 
-Pendiente de resolver.
+### Animales presentes solo en mammals
+
+```{r exclusivos-mammals}
+soloMammals <- setdiff(rownames(mammals), rownames(Animals2))
+
+soloMammals
+length(soloMammals)
+```
+
+### Animales presentes solo en Animals2
+
+```{r exclusivos-animals2}
+soloAnimals2 <- setdiff(rownames(Animals2), rownames(mammals))
+
+soloAnimals2
+length(soloAnimals2)
+```
 
 ## 6. Diferencias entre los animales no comunes
 
