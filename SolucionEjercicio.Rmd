@@ -98,4 +98,28 @@ length(soloAnimals2)
 
 ## 6. Diferencias entre los animales no comunes
 
-Pendiente de resolver.
+```{r datos-no-comunes}
+noComunesMammals <- mammals[soloMammals, , drop = FALSE]
+noComunesAnimals2 <- Animals2[soloAnimals2, , drop = FALSE]
+
+noComunesMammals
+noComunesAnimals2
+```
+
+```{r comparar-valores}
+comparacion <- merge(
+  data.frame(
+    nombreMammals = rownames(noComunesMammals),
+    noComunesMammals,
+    row.names = NULL
+  ),
+  data.frame(
+    nombreAnimals2 = rownames(noComunesAnimals2),
+    noComunesAnimals2,
+    row.names = NULL
+  ),
+  by = c("body", "brain")
+)
+
+comparacion
+```
