@@ -1,0 +1,39 @@
+---
+title: "SolucionEjercicio"
+author: "Pau Bover Femenias"
+date: "2026-10-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Datos personales
+
+- Usuario UV: Pau Bover Femenias 
+- Correo electrónico: bofepau@alumni.uv.es
+
+## 1. Características de los conjuntos de datos
+
+Pendiente de resolver.
+
+## 2. Exploración inicial
+
+Pendiente de resolver.
+
+## 3. Nombres de filas y columnas
+
+Pendiente de resolver.
+
+## 4. Animales comunes
+
+Pendiente de resolver.
+
+## 5. Animales que no aparecen en ambos conjuntos
+
+Pendiente de resolver.
+
+## 6. Diferencias entre los animales no comunes
+
+Pendiente de resolver.
