@@ -5,14 +5,15 @@ date: "2026-10-14"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Datos personales
 
-- Usuario UV: Pau Bover Femenias
+- Usuario UV: bofepau
+- Nombre y Apellidos: Pau Bover Femenias
 - Correo electrónico: [bofepau\@alumni.uv.es](mailto:bofepau@alumni.uv.es){.email}
+
+Cargamos los paquetes y los conjuntos de datos que utilizaremos.
+
+```{r cargar-datos}
 
 ```{r cargar-datos}
 library(MASS)
@@ -24,6 +25,10 @@ data("Animals2", package = "robustbase")
 
 ## 1. Características de los conjuntos de datos
 
+
+Consultamos la documentación para conocer el contenido de ambos conjuntos
+y las unidades de sus variables.
+
 ```{r, eval=FALSE}
 
 help("mammals", package = "MASS")
@@ -31,9 +36,17 @@ help("Animals2", package = "robustbase")
 
 ```
 
+Según la documentación, `mammals` contiene los pesos medios corporales
+y cerebrales de 62 especies de mamíferos terrestres. `Animals2` contiene
+65 especies: esos mamíferos y tres dinosaurios. En ambos conjuntos,
+`body` representa el peso corporal en kilogramos y `brain` el peso
+cerebral en gramos.
+
 ## 2. Exploración inicial
 
 ### Conjunto mammals
+
+Examinamos sus dimensiones, las primeras y últimas filas y su estructura.
 
 ```{r explorar-mammals}
 dim(mammals)
@@ -41,6 +54,10 @@ head(mammals)
 tail(mammals)
 str(mammals)
 ```
+
+Vemos que cada fila corresponde a una especie. Las funciones `head()` y `tail()`
+muestran seis filas del principio y del final, respectivamente.
+`str()` indica que es un data frame con dos variables numéricas.
 
 ### Conjunto Animals2
 
