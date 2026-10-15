@@ -15,7 +15,6 @@ Cargamos los paquetes y los conjuntos de datos que utilizaremos.
 
 ```{r cargar-datos}
 
-```{r cargar-datos}
 library(MASS)
 library(robustbase)
 
@@ -25,9 +24,7 @@ data("Animals2", package = "robustbase")
 
 ## 1. Características de los conjuntos de datos
 
-
-Consultamos la documentación para conocer el contenido de ambos conjuntos
-y las unidades de sus variables.
+Consultamos la documentación para conocer el contenido de ambos conjuntos y las unidades de sus variables.
 
 ```{r, eval=FALSE}
 
@@ -36,11 +33,7 @@ help("Animals2", package = "robustbase")
 
 ```
 
-Según la documentación, `mammals` contiene los pesos medios corporales
-y cerebrales de 62 especies de mamíferos terrestres. `Animals2` contiene
-65 especies: esos mamíferos y tres dinosaurios. En ambos conjuntos,
-`body` representa el peso corporal en kilogramos y `brain` el peso
-cerebral en gramos.
+Según la documentación, `mammals` contiene los pesos medios corporales y cerebrales de 62 especies de mamíferos terrestres. `Animals2` contiene 65 especies: esos mamíferos y tres dinosaurios. En ambos conjuntos, `body` representa el peso corporal en kilogramos y `brain` el peso cerebral en gramos.
 
 ## 2. Exploración inicial
 
@@ -55,7 +48,6 @@ tail(mammals)
 str(mammals)
 ```
 
-
 ### Conjunto Animals2
 
 Realizamos la misma exploración para el segundo conjunto.
@@ -66,9 +58,8 @@ head(Animals2)
 tail(Animals2)
 str(Animals2)
 ```
-Vemos que cada fila corresponde a una especie. Las funciones `head()` y `tail()`
-muestran seis filas del principio y del final, respectivamente.
-`str()` indica que es un data frame con dos variables numéricas.
+
+Vemos que cada fila corresponde a una especie. Las funciones `head()` y `tail()` muestran seis filas del principio y del final, respectivamente. `str()` indica que es un data frame con dos variables numéricas.
 
 ## 3. Nombres de filas y columnas
 
@@ -81,9 +72,7 @@ rownames(mammals)
 colnames(mammals)
 ```
 
-Los nombres de las filas identifican las especies y los nombres de las
-columnas son `body` y `brain`. Las especies están identificadas mediante
-los nombres de fila, no mediante una columna adicional.
+Los nombres de las filas identifican las especies y los nombres de las columnas son `body` y `brain`. Las especies están identificadas mediante los nombres de fila, no mediante una columna adicional.
 
 ### Conjunto Animals2
 
@@ -94,8 +83,7 @@ colnames(Animals2)
 
 ## 4. Animales comunes
 
-Utilizamos `intersect()` para obtener los nombres de animales que
-aparecen en ambos conjuntos y guardamos el resultado en `commonAnimals.
+Utilizamos `intersect()` para obtener los nombres de animales que aparecen en ambos conjuntos y guardamos el resultado en \`commonAnimals.
 
 ```{r animales-comunes}
 commonAnimals <- intersect(rownames(mammals), rownames(Animals2))
@@ -104,12 +92,9 @@ commonAnimals
 length(commonAnimals)
 ```
 
-Encontramos 58 nombres comunes. Esta comparación
-exige que los nombres coincidan exactamente: diferencias de escritura
-pueden hacer que una misma especie no se reconozca como común.
+Encontramos 58 nombres comunes. Esta comparación exige que los nombres coincidan exactamente: diferencias de escritura pueden hacer que una misma especie no se reconozca como común.
 
 ## 5. Animales que no aparecen en ambos conjuntos
-
 
 ### Animales presentes solo en mammals
 
@@ -124,9 +109,7 @@ length(soloMammals)
 
 ### Animales presentes solo en Animals2
 
-Invertimos el orden de los argumentos para encontrar los nombres
-exclusivos de `Animals2`.
-
+Invertimos el orden de los argumentos para encontrar los nombres exclusivos de `Animals2`.
 
 ```{r exclusivos-animals2}
 soloAnimals2 <- setdiff(rownames(Animals2), rownames(mammals))
@@ -134,12 +117,12 @@ soloAnimals2 <- setdiff(rownames(Animals2), rownames(mammals))
 soloAnimals2
 length(soloAnimals2)
 ```
+
 Observamos que hay nombres de animales que parecen exactamen
 
 ## 6. Diferencias entre los animales no comunes
 
-Seleccionamos las filas correspondientes a los nombres exclusivos
-de cada conjunto para consultar sus pesos corporales y cerebrales.
+Seleccionamos las filas correspondientes a los nombres exclusivos de cada conjunto para consultar sus pesos corporales y cerebrales.
 
 ```{r datos-no-comunes}
 noComunesMammals <- mammals[soloMammals, , drop = FALSE]
@@ -149,12 +132,9 @@ noComunesMammals
 noComunesAnimals2
 ```
 
-Las tablas muestran los datos de los animales cuyos nombres no coinciden.
-Esto permite comprobar si algunos presentan los mismos pesos a pesar
-de tener nombres escritos de forma diferente.
+Las tablas muestran los datos de los animales cuyos nombres no coinciden. Esto permite comprobar si algunos presentan los mismos pesos a pesar de tener nombres escritos de forma diferente.
 
-Convertimos los nombres de fila en columnas y buscamos coincidencias
-exactas en las dos variables de peso.
+Convertimos los nombres de fila en columnas y buscamos coincidencias exactas en las dos variables de peso.
 
 ```{r comparar-valores}
 comparacion <- merge(
@@ -174,7 +154,47 @@ comparacion <- merge(
 comparacion
 ```
 
-Vemos como 2 nombres difernetes corresponden a la misma especie, estas coincidencias
-explican por qué algunos mamíferos aparecían como exclusivos al comparar
-únicamente los nombres, sin embargo biento sus valores osn la misma especie. Los tres dinosaurios constituyen las especies
-adicionales descritas en la documentación de `Animals2`.
+Vemos como 2 nombres difernetes corresponden a la misma especie, estas coincidencias explican por qué algunos mamíferos aparecían como exclusivos al comparar únicamente los nombres, sin embargo biento sus valores osn la misma especie. Los tres dinosaurios constituyen las especies adicionales descritas en la documentación de `Animals2`.
+
+Para comprobar si los animales restantes presentan características distintas de los mamíferos comparados, representamos su peso corporal y cerebral en un gráfico de dispersión con escalas logarítmicas.
+
+```{r}
+
+dinosaurios <- Animals2[
+  c("Brachiosaurus", "Dipliodocus", "Triceratops"),
+  ,
+  drop = FALSE
+]
+
+# Límites que incluyen ambos grupos
+limitesX <- range(dinosaurios$body, comparacion$body)
+limitesY <- range(dinosaurios$brain, comparacion$brain)
+
+plot(
+  comparacion$body, comparacion$brain,
+  log = "xy",
+  xlim = limitesX,
+  ylim = limitesY,
+  col = "steelblue",
+  pch = 19,
+  xlab = "Peso corporal (kg, escala logarítmica)",
+  ylab = "Peso cerebral (g, escala logarítmica)",
+  main = "Scatterplot de animales que no coinciden en datasets"
+)
+
+points(
+  dinosaurios$body, dinosaurios$brain,
+  col = "tomato",
+  pch = 19
+)
+
+legend(
+  "bottomright",
+  legend = c("Mamíferos de la comparación", "Dinosaurios"),
+  col = c("steelblue", "tomato"),
+  pch = 19,
+  bty = "n"
+)
+
+```
+El gráfico muestra dos grupos entre los animales cuyos nombres no coincidían: los mamíferos con diferencias de escritura y los tres dinosaurios. Estos últimos presentan un peso corporal mucho mayor, sin un aumento proporcional del peso cerebral, por lo que aparecen separados de los mamíferos representados.
