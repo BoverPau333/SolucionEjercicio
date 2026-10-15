@@ -55,11 +55,10 @@ tail(mammals)
 str(mammals)
 ```
 
-Vemos que cada fila corresponde a una especie. Las funciones `head()` y `tail()`
-muestran seis filas del principio y del final, respectivamente.
-`str()` indica que es un data frame con dos variables numéricas.
 
 ### Conjunto Animals2
+
+Realizamos la misma exploración para el segundo conjunto.
 
 ```{r explorar-animals2}
 dim(Animals2)
@@ -67,15 +66,24 @@ head(Animals2)
 tail(Animals2)
 str(Animals2)
 ```
+Vemos que cada fila corresponde a una especie. Las funciones `head()` y `tail()`
+muestran seis filas del principio y del final, respectivamente.
+`str()` indica que es un data frame con dos variables numéricas.
 
 ## 3. Nombres de filas y columnas
 
 ### Conjunto mammals
 
+Mostramos los nombres que identifican las especies y las variables.
+
 ```{r nombres-mammals}
 rownames(mammals)
 colnames(mammals)
 ```
+
+Los nombres de las filas identifican las especies y los nombres de las
+columnas son `body` y `brain`. Las especies están identificadas mediante
+los nombres de fila, no mediante una columna adicional.
 
 ### Conjunto Animals2
 
@@ -86,6 +94,9 @@ colnames(Animals2)
 
 ## 4. Animales comunes
 
+Utilizamos `intersect()` para obtener los nombres de animales que
+aparecen en ambos conjuntos y guardamos el resultado en `commonAnimals.
+
 ```{r animales-comunes}
 commonAnimals <- intersect(rownames(mammals), rownames(Animals2))
 
@@ -93,9 +104,16 @@ commonAnimals
 length(commonAnimals)
 ```
 
+Encontramos 58 nombres comunes. Esta comparación
+exige que los nombres coincidan exactamente: diferencias de escritura
+pueden hacer que una misma especie no se reconozca como común.
+
 ## 5. Animales que no aparecen en ambos conjuntos
 
+
 ### Animales presentes solo en mammals
+
+Buscamos los nombres de `mammals` que no aparecen en `Animals2`.
 
 ```{r exclusivos-mammals}
 soloMammals <- setdiff(rownames(mammals), rownames(Animals2))
@@ -106,14 +124,22 @@ length(soloMammals)
 
 ### Animales presentes solo en Animals2
 
+Invertimos el orden de los argumentos para encontrar los nombres
+exclusivos de `Animals2`.
+
+
 ```{r exclusivos-animals2}
 soloAnimals2 <- setdiff(rownames(Animals2), rownames(mammals))
 
 soloAnimals2
 length(soloAnimals2)
 ```
+Observamos que hay nombres de animales que parecen exactamen
 
 ## 6. Diferencias entre los animales no comunes
+
+Seleccionamos las filas correspondientes a los nombres exclusivos
+de cada conjunto para consultar sus pesos corporales y cerebrales.
 
 ```{r datos-no-comunes}
 noComunesMammals <- mammals[soloMammals, , drop = FALSE]
@@ -122,6 +148,13 @@ noComunesAnimals2 <- Animals2[soloAnimals2, , drop = FALSE]
 noComunesMammals
 noComunesAnimals2
 ```
+
+Las tablas muestran los datos de los animales cuyos nombres no coinciden.
+Esto permite comprobar si algunos presentan los mismos pesos a pesar
+de tener nombres escritos de forma diferente.
+
+Convertimos los nombres de fila en columnas y buscamos coincidencias
+exactas en las dos variables de peso.
 
 ```{r comparar-valores}
 comparacion <- merge(
@@ -140,3 +173,8 @@ comparacion <- merge(
 
 comparacion
 ```
+
+Vemos como 2 nombres difernetes corresponden a la misma especie, estas coincidencias
+explican por qué algunos mamíferos aparecían como exclusivos al comparar
+únicamente los nombres, sin embargo biento sus valores osn la misma especie. Los tres dinosaurios constituyen las especies
+adicionales descritas en la documentación de `Animals2`.
